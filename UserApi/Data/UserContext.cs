@@ -53,5 +53,7 @@ namespace UserApi.Data
                 = new ValueConverterInfo(typeof(bool), typeof(int), i => new BoolToIntConverter(i.MappingHints));
         }
         public DbSet<User> Users { get; set; }
+
+        public DbSet<UserProperty> UserProperties { get; set; }
     }
 }
