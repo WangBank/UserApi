@@ -19,7 +19,6 @@
     },
     "UserApi": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "api/Users",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

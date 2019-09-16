@@ -79,14 +79,17 @@ namespace UserApi.Controllers
 
 
         [Route("check-or-create")]
-        [HttpPost  ]
-        public async Task<IActionResult> CheckOrCreate(string phone)
+        [HttpGet]
+        public async Task<int> CheckOrCreate(string phone)
         {
-            if (!await userContext.Users.AnyAsync(u => u.Phone == phone))
+            var user = await userContext.Users.SingleOrDefaultAsync(u => u.Phone == phone);
+            if (user == null)
             {
-                await userContext.Users.AddAsync(new Models.User { Phone = phone});
+                user = new Models.User { Phone = phone };
+                await userContext.Users.AddAsync(user);
+                await userContext.SaveChangesAsync();
             }
-            return Ok();
+            return user.Id;
             
         }
 

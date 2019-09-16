@@ -7,6 +7,6 @@ namespace UserIdentity.Services
 {
     public interface IUserService
     {
-        int CheckOrCreate(string phone);
+        Task<int> CheckOrCreate(string phone);
     }
 }

@@ -6,6 +6,6 @@ namespace UserIdentity.Services
 {
     public interface IAuthCodeService
     {
-        bool Validate(string phone, string authCode);
+        Task<bool> Validate(string phone, string authCode);
     }
 }

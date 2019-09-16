@@ -30,14 +30,14 @@ namespace UserIdentity.Authentication
             }
 
             //验证码
-            if (!authCodeService.Validate(phone, authCode))
+            if (!await authCodeService.Validate(phone, authCode))
             {
                 context.Result = errorValidationResult;
                 return;
             }
 
             //完成用户注册
-            int userId = userService.CheckOrCreate(phone);
+            int userId = await userService.CheckOrCreate(phone);
             if (userId <= 0)
             {
                 context.Result = errorValidationResult;
