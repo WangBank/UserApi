@@ -38,6 +38,11 @@ namespace UserApi.Controllers
             return new JsonResult(user);
         }
 
+        /// <summary>
+        /// patch方式更新用户信息
+        /// </summary>
+        /// <param name="patch"></param>
+        /// <returns></returns>
         [Route("")]
         [HttpPatch]
         public async Task<IActionResult> Patch(JsonPatchDocument<Models.User> patch)
@@ -47,10 +52,15 @@ namespace UserApi.Controllers
             {
                 userContext.Entry(property).State = EntityState.Detached;
             }
+
+            //将更新后的模型合并到user中
             patch.ApplyTo(user);
             
+            //为了更新properties
             var orginProperties = await userContext.UserProperties.AsNoTracking().Where(u=>u.UserId == userIdentity.UserId).ToListAsync();
+
             var allProperties = orginProperties.Union(user.Properties).Distinct();
+
             var removeProperties = orginProperties.Except(user.Properties);
             var newProperties = allProperties.Except(orginProperties);
             foreach (var property in removeProperties)
@@ -67,11 +77,17 @@ namespace UserApi.Controllers
             return new JsonResult(user);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+
+        [Route("check-or-create")]
+        [HttpPost  ]
+        public async Task<IActionResult> CheckOrCreate(string phone)
         {
-            return "value";
+            if (!await userContext.Users.AnyAsync(u => u.Phone == phone))
+            {
+                await userContext.Users.AddAsync(new Models.User { Phone = phone});
+            }
+            return Ok();
+            
         }
 
         // POST api/values
