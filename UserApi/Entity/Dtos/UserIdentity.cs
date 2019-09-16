@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace UserApi.Dtos
 {
-    public class UserIndentity
+    public class UserIdentity
     {
         public int UserId { get; set; }
         public string Name { get; set; }

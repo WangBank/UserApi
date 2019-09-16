@@ -11,16 +11,14 @@ using UserApi.Dtos;
 
 namespace UserApi.Controllers
 {
-    [Route("api/Users")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseController
     {
         private ILogger<UsersController> logger;
         private UserContext userContext;
-        UserIndentity userIndentity; 
         public UsersController(UserContext userContext, ILogger<UsersController> logger)
         {
-            this.userIndentity = new UserIndentity { Name = "王振", UserId = 1 };
             this.userContext = userContext;
             this.logger = logger;
         }
@@ -28,13 +26,14 @@ namespace UserApi.Controllers
         [HttpGet]
         public async  Task<IActionResult> Get()
         {
-           
            var user = await userContext.Users
-                .AsNoTracking().Include(u=>u.Properties)
-                .SingleOrDefaultAsync(u=>u.Id== userIndentity.UserId);
+                //去掉EF状态跟踪
+                .AsNoTracking()
+                .Include(u=>u.Properties)
+                .SingleOrDefaultAsync(u=>u.Id== userIdentity.UserId);
             if (user==null)
             {
-                throw new UserOperatorExpection($"错误的用户上下文id{userIndentity.UserId}");
+                throw new UserOperatorExpection($"错误的用户上下文id{userIdentity.UserId}");
             }
             return new JsonResult(user);
         }
@@ -43,14 +42,14 @@ namespace UserApi.Controllers
         [HttpPatch]
         public async Task<IActionResult> Patch(JsonPatchDocument<Models.User> patch)
         {
-            var user = await userContext.Users.Include(u => u.Properties).SingleOrDefaultAsync(u=>u.Id == userIndentity.UserId);
+            var user = await userContext.Users.Include(u => u.Properties).SingleOrDefaultAsync(u=>u.Id == userIdentity.UserId);
             foreach (var property in user.Properties)
             {
                 userContext.Entry(property).State = EntityState.Detached;
             }
             patch.ApplyTo(user);
             
-            var orginProperties = await userContext.UserProperties.AsNoTracking().Where(u=>u.UserId == userIndentity.UserId).ToListAsync();
+            var orginProperties = await userContext.UserProperties.AsNoTracking().Where(u=>u.UserId == userIdentity.UserId).ToListAsync();
             var allProperties = orginProperties.Union(user.Properties).Distinct();
             var removeProperties = orginProperties.Except(user.Properties);
             var newProperties = allProperties.Except(orginProperties);

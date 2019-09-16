@@ -45,7 +45,19 @@ namespace UserApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "about",
+                    template: "about",
+                    defaults: new { controller = "Home", action = "About" }
+                );
+                
+                routes.MapRoute(
+                    name: "default",
+                    template: "api/{controller}/{action}"
+                );
+            });
             UserContextSeed.SeedAsync(app,loggerFactory).Wait();
         }
     }
