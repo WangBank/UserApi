@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace UserApi.Data
+namespace Users.Api.Data
 {
     public class UserContextSeed
     {

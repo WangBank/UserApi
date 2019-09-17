@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using static IdentityModel.OidcConstants;
 using GrantTypes = IdentityServer4.Models.GrantTypes;
 
-namespace UserIdentity
+namespace Users.Identity
 {
     public class Config
     {
@@ -44,7 +44,7 @@ namespace UserIdentity
         {
             return new List<ApiResource>
             {
-                new ApiResource("User_APi", "UserAPI")
+                new ApiResource("gateway_api", "gateway_api")
             };
         }
 
@@ -65,7 +65,7 @@ namespace UserIdentity
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = { "User_APi" },
+                    AllowedScopes = { "gateway_api" },
                 }
             };
         }

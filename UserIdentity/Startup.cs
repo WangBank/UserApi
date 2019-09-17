@@ -10,9 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using UserIdentity.Services;
+using Users.Identity.Services;
 
-namespace UserIdentity
+namespace Users.Identity
 {
     public class Startup
     {

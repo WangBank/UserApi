@@ -5,7 +5,7 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
-    <StartupObject>UserApi.Program</StartupObject>
+    <StartupObject>Users.Api.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

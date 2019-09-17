@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UserApi.Models;
+using Users.Api.Models;
 
-namespace UserApi.Data
+namespace Users.Api.Data
 {
     public class UserContext:DbContext
     {
@@ -17,7 +17,7 @@ namespace UserApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().ToTable("Users").HasKey(u => u.Id);
+            modelBuilder.Entity<Models.User>().ToTable("Users").HasKey(u => u.Id);
 
             modelBuilder.Entity<UserProperty>().ToTable("UserProperties").HasKey(u => new { u.Key,u.Value,u.UserId});
             modelBuilder.Entity<UserProperty>().Property(u => u.Key).HasMaxLength(100);
@@ -52,7 +52,7 @@ namespace UserApi.Data
             public static ValueConverterInfo DefaultInfo { get; }
                 = new ValueConverterInfo(typeof(bool), typeof(int), i => new BoolToIntConverter(i.MappingHints));
         }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Models.User> Users { get; set; }
 
         public DbSet<UserProperty> UserProperties { get; set; }
     }

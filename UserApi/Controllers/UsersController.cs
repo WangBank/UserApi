@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using UserApi.Data;
-using UserApi.Dtos;
+using Users.Api.Data;
+using Users.Api.Dtos;
 
-namespace UserApi.Controllers
+namespace Users.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 
-namespace UserApi.Filters
+namespace Users.Api.Filters
 {
     public class GlobalExceptionFilter : IExceptionFilter
     {

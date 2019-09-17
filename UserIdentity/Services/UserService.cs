@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserIdentity.Services
+namespace Users.Identity.Services
 {
     public class UserService : IUserService
     {

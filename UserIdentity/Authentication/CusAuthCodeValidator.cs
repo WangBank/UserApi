@@ -1,9 +1,9 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Validation;
 using System.Threading.Tasks;
-using UserIdentity.Services;
+using Users.Identity.Services;
 
-namespace UserIdentity.Authentication
+namespace Users.Identity.Authentication
 {
     public class CusAuthCodeValidator : IExtensionGrantValidator
     {

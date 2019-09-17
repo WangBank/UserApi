@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using UserApi.Data;
+using Users.Api.Data;
 
-namespace UserApi.Migrations
+namespace Users.Api.Migrations
 {
     [DbContext(typeof(UserContext))]
     [Migration("20190826085238_addUserEntites")]
@@ -19,7 +19,7 @@ namespace UserApi.Migrations
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("UserApi.Models.BPFile", b =>
+            modelBuilder.Entity("Users.Api.Models.BPFile", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
@@ -39,7 +39,7 @@ namespace UserApi.Migrations
                     b.ToTable("BPFiles");
                 });
 
-            modelBuilder.Entity("UserApi.Models.User", b =>
+            modelBuilder.Entity("Users.Api.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -77,7 +77,7 @@ namespace UserApi.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("UserApi.Models.UserProperty", b =>
+            modelBuilder.Entity("Users.Api.Models.UserProperty", b =>
                 {
                     b.Property<string>("Key")
                         .HasMaxLength(100);
@@ -96,7 +96,7 @@ namespace UserApi.Migrations
                     b.ToTable("UserProperties");
                 });
 
-            modelBuilder.Entity("UserApi.Models.UserTag", b =>
+            modelBuilder.Entity("Users.Api.Models.UserTag", b =>
                 {
                     b.Property<string>("Tag")
                         .HasMaxLength(100);
@@ -108,9 +108,9 @@ namespace UserApi.Migrations
                     b.ToTable("UserTags");
                 });
 
-            modelBuilder.Entity("UserApi.Models.UserProperty", b =>
+            modelBuilder.Entity("Users.Api.Models.UserProperty", b =>
                 {
-                    b.HasOne("UserApi.Models.User")
+                    b.HasOne("Users.Api.Models.User")
                         .WithMany("Properties")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

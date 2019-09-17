@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using UserApi.Dtos;
+using Users.Api.Dtos;
 
-namespace UserApi.Controllers
+namespace Users.Api.Controllers
 {
     public class BaseController : ControllerBase
     {

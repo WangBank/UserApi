@@ -10,10 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using UserApi.Data;
-using UserApi.Filters;
+using Users.Api.Data;
+using Users.Api.Filters;
 
-namespace UserApi
+namespace Users.Api
 {
     public class Startup
     {

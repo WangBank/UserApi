@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace UserIdentity.Services
+namespace Users.Identity.Services
 {
     public class AuthCodeService : IAuthCodeService
     {
