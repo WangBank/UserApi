@@ -27,17 +27,6 @@ namespace UserIdentity
                     {
                         new Claim("role", "user")
                     }
-                },
-                new TestUser
-                {
-                    SubjectId = "2",
-                    Username = "admin",
-                    Password = "123",
-
-                    Claims = new List<Claim>
-                    {
-                        new Claim("role", "admin")
-                    }
                 }
             };
         }
@@ -47,8 +36,7 @@ namespace UserIdentity
             return new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
-                new IdentityResource("roles","role",new List<string>{ "role"})
+                new IdentityResources.Profile()
             };
         }
 
