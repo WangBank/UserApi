@@ -13,6 +13,6 @@
     <PackageReference Include="Ocelot" Version="13.5.2" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties ocelot_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties ocelot_1json__JsonSchema="http://json-schema.org/draft-04/schema" /></VisualStudio></ProjectExtensions>
 
 </Project>
