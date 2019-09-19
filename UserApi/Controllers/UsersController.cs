@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Users.Api.Data;
 using Users.Api.Dtos;
 
@@ -79,10 +83,16 @@ namespace Users.Api.Controllers
 
 
         [Route("check-or-create")]
-        [HttpGet]
-        public async Task<int> CheckOrCreate(string phone)
+        [HttpPost]
+        public async Task<int> CheckOrCreate()
         {
-            var user = await userContext.Users.SingleOrDefaultAsync(u => u.Phone == phone);
+            string phone = "";
+            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
+            {
+                phone =  await reader.ReadToEndAsync();
+            }
+            Phone ss = (Phone)JsonConvert.DeserializeObject(phone,typeof(Phone));
+            var user = await userContext.Users.SingleOrDefaultAsync(u => u.Phone == ss.phone);
             if (user == null)
             {
                 user = new Models.User { Phone = phone };
@@ -110,5 +120,10 @@ namespace Users.Api.Controllers
         public void Delete(int id)
         {
         }
+    }
+
+    internal class Phone
+    {
+        public string phone { get; set; }
     }
 }
