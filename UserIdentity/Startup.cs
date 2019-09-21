@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 using DnsClient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Resilience;
 using Users.Identity.Dtos;
+using Users.Identity.Infrastructure;
 using Users.Identity.Services;
 
 namespace Users.Identity
@@ -44,6 +47,19 @@ namespace Users.Identity
                 return new LookupClient(serviceConfiguration.Consul.DnsEndpoint.ToIPEndPoint());
             });
 
+            //注册全局单例IHttpClient
+            services.AddSingleton<IHttpClient>(sp=> {
+                return sp.GetRequiredService<ResilienceClientFactory>().GetResilienceHttpClient();
+            });
+
+            //注册和局单例
+            services.AddSingleton(typeof(ResilienceClientFactory),sp=> {
+                var logger = sp.GetRequiredService<ILogger<ResilienceHttpClient>>();
+                var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
+                var retryCount = 5;
+                var exceptionsAllowedBeforeBreaking = 5;
+                return new ResilienceClientFactory(logger, httpContextAccessor, retryCount, exceptionsAllowedBeforeBreaking);
+            });
 
             services.AddScoped<IAuthCodeService, AuthCodeService>()
                 .AddScoped<IUserService, UserService>();
